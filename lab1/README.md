@@ -1,5 +1,6 @@
 # Реализация небольшой сети офиса
 ## Схема:
+![image](https://github.com/medjed02/networks_hse/assets/58427105/62c90948-4163-46fb-afba-2066a7f2311e)
 
 ## VPC1
 ```
@@ -54,10 +55,10 @@ Switch(config-if)#switchport access vlan 20
 Switch(config-if)#exit
 
 Switch(config)#interface range gigabitEthernet 0/1-2
-Switch(config-if)#switchport trunk encapsulation dot1q
-Switch(config-if)#switchport mode trunk
-Switch(config-if)#switchport trunk allowed vlan 10,20
-Switch(config-if)#exit
+Switch(config-if-range)#switchport trunk encapsulation dot1q
+Switch(config-if-range)#switchport mode trunk
+Switch(config-if-range)#switchport trunk allowed vlan 10,20
+Switch(config-if-range)#exit
 Switch(config)#exit
 
 Switch#write memory
@@ -73,10 +74,10 @@ Switch(config)#vlan 20
 Switch(config-vlan)#exit
 
 Switch(config)#interface range gigabitEthernet 0/0-2
-Switch(config-if)#switchport trunk encapsulation dot1q
-Switch(config-if)#switchport mode trunk
-Switch(config-if)#switchport trunk allowed vlan 10,20
-Switch(config-if)#exit
+Switch(config-if-range)#switchport trunk encapsulation dot1q
+Switch(config-if-range)#switchport mode trunk
+Switch(config-if-range)#switchport trunk allowed vlan 10,20
+Switch(config-if-range)#exit
 
 Switch(config)#spanning-tree mode pvst
 Switch(config)#spanning-tree extend system-id
