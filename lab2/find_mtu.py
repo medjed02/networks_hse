@@ -12,11 +12,11 @@ def check_availability(hostname: str) -> bool:
     if platform.system().lower() == 'windows':
         command = f"ping -n 5 {hostname}"
     else:
-        command = f"ping -n 5 {hostname}"
+        command = f"ping -c 5 {hostname}"
 
     try:
         result = subprocess.run(
-            command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         return result.returncode == 0
     except Exception as e:
         return False
@@ -30,7 +30,7 @@ def ping_with_packet_size(hostname: str, packet_size: int) -> bool:
 
     try:
         result = subprocess.run(
-            command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         return result.returncode == 0
     except Exception as e:
         return False
