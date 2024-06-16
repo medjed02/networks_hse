@@ -5,7 +5,7 @@ import platform
 
 HEADER_SIZE = 28
 MIN_MTU = 0
-MAX_MTU = 65536
+MAX_MTU = 10000
 
 
 def check_availability(hostname: str) -> bool:
@@ -26,7 +26,7 @@ def ping_with_packet_size(hostname: str, packet_size: int) -> bool:
     if platform.system().lower() == "windows":
         command = ["ping", hostname, "-f", "-l", str(packet_size)]
     else:
-        command = ["ping", hostname, "-D", "-c", "1", "-s", str(packet_size)]
+        command = ["ping", hostname, "-c", "1", "-s", str(packet_size)]
 
     try:
         result = subprocess.run(
