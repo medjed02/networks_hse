@@ -10,13 +10,13 @@ MAX_MTU = 65536
 
 def check_availability(hostname: str) -> bool:
     if platform.system().lower() == 'windows':
-        command = f"ping -n 5 {hostname}"
+        command = ["ping", "-n", "5", hostname]
     else:
-        command = f"ping -c 5 {hostname}"
+        command = ["ping", "-c", "5", hostname]
 
     try:
         result = subprocess.run(
-            command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         return result.returncode == 0
     except Exception as e:
         return False
@@ -24,13 +24,13 @@ def check_availability(hostname: str) -> bool:
 
 def ping_with_packet_size(hostname: str, packet_size: int) -> bool:
     if platform.system().lower() == "windows":
-        command = f"ping {hostname} -f -l {packet_size}"
+        command = ["ping", hostname, "-f", "-l", str(packet_size)]
     else:
-        command = f"ping {hostname} -D -c 1 -s {packet_size}"
+        command = ["ping", hostname, "-D", "-c", "1", "-s", str(packet_size)]
 
     try:
         result = subprocess.run(
-            command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         return result.returncode == 0
     except Exception as e:
         return False
@@ -64,4 +64,3 @@ if __name__ == '__main__':
     mtu = find_min_mtu(hostname)
     mtu += HEADER_SIZE
     print(f"Minimum MTU = {mtu}")
-
