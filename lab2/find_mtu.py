@@ -24,7 +24,7 @@ def check_availability(hostname: str) -> bool:
 
 def ping_with_packet_size(hostname: str, packet_size: int) -> bool:
     if platform.system().lower() == "windows":
-        command = ["ping", hostname, "-f", "-l", str(packet_size)]
+        command = ["ping", hostname, "-n", "1", "-f", "-l", str(packet_size)]
     else:
         command = ["ping", hostname, "-c", "1", "-s", str(packet_size)]
 
